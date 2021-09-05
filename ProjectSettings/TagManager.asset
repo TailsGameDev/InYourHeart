@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - scenario
+  - DestroyMovingScript
+  - rastejante
+  - officeStress
+  - officeStressPurple
+  - rasteRoxo
+  - flipVelArea
+  - dontDestroyDamager
+  - LionBoss
+  - SpriteRenderer
+  - FEARBoss
+  - heartArrow
+  - PastBoss
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: background
+    uniqueID: 528655271
+    locked: 0
+  - name: scenario
+    uniqueID: 2637471441
+    locked: 0
+  - name: player
+    uniqueID: 3856492031
+    locked: 0
+  - name: scenarioFront
+    uniqueID: 3849180009
+    locked: 0
+  - name: Enemy
+    uniqueID: 3312574487
+    locked: 0
+  - name: projectiles
+    uniqueID: 1429119241
+    locked: 0
+  - name: VFX
+    uniqueID: 2320957933
+    locked: 0
