@@ -17,14 +17,15 @@ TagManager:
   - FEARBoss
   - heartArrow
   - PastBoss
+  - wall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
+  - JumpTrigger
   - 
   - 
   - 
