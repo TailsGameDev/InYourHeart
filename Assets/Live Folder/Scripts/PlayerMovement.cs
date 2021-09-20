@@ -36,8 +36,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform flipXObject = null;
 
+    [SerializeField]
+    private Transform arrowSpawner = null;
+
+    [SerializeField]
+    private Transform arrowPrefab = null;
+
+    [SerializeField]
+    private float maxChargingAttackImpulse = 0.0f;
+    [SerializeField]
+    private float chargingSpeed = 0.0f;
+
+    private float currentCharge;
+
     private float horizontalInput;
 
+    private bool isPressingShootInput;
     private bool isPressingJumpInput;
     private bool shouldDoTriggerJump;
 
@@ -60,9 +74,21 @@ public class PlayerMovement : MonoBehaviour
         this.isPressingJumpInput = Input.GetButton("Jump");
         this.shouldJump = shouldJump || ( Input.GetButtonDown("Jump") && isOnGround );
 
+        this.isPressingShootInput = Input.GetButton("Fire1");
+
         // Animations
         playerAnimator.SetFloat("horizontal", horizontalInput);
         playerAnimator.SetBool("isOnGround", isOnGround);
+        playerAnimator.SetBool("Fire1", isPressingShootInput);
+
+        // Shoot
+        if (Input.GetButtonUp("Fire1"))
+        {
+            Instantiate(arrowPrefab, arrowSpawner.position, arrowSpawner.rotation)
+                .GetComponent<Bullet>().ApplyImpulse(rb2d.velocity.magnitude + currentCharge);
+
+            currentCharge = 0.0f;
+        }
     }
 
     private void FixedUpdate()
@@ -81,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
                 canIGoLeft = canIGoLeft && wall.transform.position.x > transform.position.x;
             }
 
-            if (horizontalInput > 0.0f && canIGoRight || horizontalInput < 0.0f && canIGoLeft)
+            if ( (!isPressingShootInput || !isOnGround) && (horizontalInput > 0.0f && canIGoRight || horizontalInput < 0.0f && canIGoLeft))
             {
                 rb2d.AddForce(horizontalInput * horizontalSpeed * Vector2.right);
             }
@@ -131,19 +157,19 @@ public class PlayerMovement : MonoBehaviour
             {
                 case JumpState.NOT_JUMPING:
                     rb2d.gravityScale = 5.0f;
-                    spriteRenderer.color = Color.white;
+                    // spriteRenderer.color = Color.white;
                     break;
                 case JumpState.BEFORE_RELEASING_JUMP_BUTTON:
                     rb2d.gravityScale = 2.0f;
-                    spriteRenderer.color = Color.red;
+                    // spriteRenderer.color = Color.red;
                     break;
                 case JumpState.AFTER_RELEASING_JUMP_BUTTON:
                     rb2d.gravityScale = 5.0f;
-                    spriteRenderer.color = Color.blue;
+                    // spriteRenderer.color = Color.blue;
                     break;
                 case JumpState.STARTING_TRIGGER_JUMP:
                     rb2d.gravityScale = 3.5f;
-                    spriteRenderer.color = Color.yellow;
+                    // spriteRenderer.color = Color.yellow;
                     break;
             }
 
@@ -202,6 +228,17 @@ public class PlayerMovement : MonoBehaviour
                     }
                     break;
             }
+        }
+
+        // Charging Attack
+        {
+            if (isPressingShootInput)
+            {
+                currentCharge = Mathf.Clamp(currentCharge + (chargingSpeed* maxChargingAttackImpulse), 
+                                            min: 0.0f, max: maxChargingAttackImpulse);
+            }
+
+            spriteRenderer.color = Color.Lerp(Color.white, Color.magenta, currentCharge/maxChargingAttackImpulse);
         }
     }
 

@@ -45,6 +45,6 @@ EditorBuildSettings:
     path: Assets/OldStuff/Scene/Scenes/Difficulty.unity
     guid: 1119f166d1b92a7499e4751a0df624c1
   - enabled: 1
-    path: Assets/Pasta da Live/2D Best Scene Ever.unity
+    path: Assets/Live Folder/2D Best Scene Ever.unity
     guid: 677ce48b2a02eba4f8937875b38b46fa
   m_configObjects: {}
