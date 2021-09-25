@@ -261,6 +261,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4257582882981271888}
+  - component: {fileID: 6600181960360427092}
   - component: {fileID: 4257582882981271890}
   - component: {fileID: 4257582882981271894}
   m_Layer: 3
@@ -288,6 +289,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6600181960360427092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4257582882981271891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb1d495dc7d49c47a020da711532310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4257582882981271890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,18 +313,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2767861d722b2904abcbb91a8f5d534a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInput: {fileID: 6600181960360427092}
   rb2d: {fileID: 4257582882981271894}
+  bottomRaycastOrigin: {fileID: 4257582883391518363}
+  flipXObject: {fileID: 2091361553751038032}
   horizontalSpeed: 100
   horizontalDrag: 10
   initialJumpSpeed: 350
-  bottomRaycastOrigin: {fileID: 4257582883391518363}
-  spriteRenderer: {fileID: 3894361417348896889}
-  playerAnimator: {fileID: 7207398575441052924}
-  flipXObject: {fileID: 2091361553751038032}
   arrowSpawner: {fileID: 0}
   arrowPrefab: {fileID: 0}
   maxChargingAttackImpulse: 20
   chargingSpeed: 0.1
+  spriteRenderer: {fileID: 3894361417348896889}
+  playerAnimator: {fileID: 7207398575441052924}
 --- !u!50 &4257582882981271894
 Rigidbody2D:
   serializedVersion: 4

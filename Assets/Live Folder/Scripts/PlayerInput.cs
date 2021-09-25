@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    public float GetHorizontalAxis()
+    // Input
+    private float horizontalInput;
+    private bool isPressingShootInput;
+    private bool isPressingJumpInput;
+
+    public float HorizontalInput { get => horizontalInput; set => horizontalInput = value; }
+    public bool IsPressingShootInput { get => isPressingShootInput; set => isPressingShootInput = value; }
+    public bool IsPressingJumpInput { get => isPressingJumpInput; set => isPressingJumpInput = value; }
+
+    private void Update()
     {
-        return Input.GetAxisRaw("Horizontal");
+        this.horizontalInput = Input.GetAxisRaw("Horizontal");
+        this.isPressingJumpInput = Input.GetButton("Jump");
+        this.isPressingShootInput = Input.GetButton("Fire1");
     }
 }

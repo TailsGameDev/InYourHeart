@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
         STARTING_TRIGGER_JUMP,
     }
 
+    [SerializeField]
+    private PlayerInput playerInput = null;
+
     [Header("Movement")]
     [SerializeField]
     private Rigidbody2D rb2d = null;
@@ -28,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isOnGround;
     private bool shouldJump;
+    private bool shouldDoTriggerJump;
     private JumpState jumpState;
     private List<Collider2D> walls = new List<Collider2D>();
 
@@ -50,12 +54,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Animator playerAnimator = null;
 
-    // Input
-    private float horizontalInput;
-    private bool isPressingShootInput;
-    private bool isPressingJumpInput;
-    private bool shouldDoTriggerJump;
-
     private void Awake()
     {
         // NOTE: this shouln't be in this script. When some other script like GameManager or similar is created
@@ -65,12 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        this.horizontalInput = Input.GetAxisRaw("Horizontal");
-
-        this.isPressingJumpInput = Input.GetButton("Jump");
-        this.shouldJump = shouldJump || ( Input.GetButtonDown("Jump") && isOnGround );
-
-        this.isPressingShootInput = Input.GetButton("Fire1");
+        this.shouldJump = shouldJump || (Input.GetButtonDown("Jump") && isOnGround);
 
         // Shooting
         if (Input.GetButtonUp("Fire1"))
@@ -82,17 +75,20 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Animations
-        playerAnimator.SetFloat("horizontal", horizontalInput);
+        playerAnimator.SetFloat("horizontal", playerInput.HorizontalInput);
         playerAnimator.SetBool("isOnGround", isOnGround);
-        playerAnimator.SetBool("Fire1", isPressingShootInput);
+        playerAnimator.SetBool("Fire1", playerInput.IsPressingShootInput);
     }
 
     private void FixedUpdate()
     {
+
         // Movement
         {
             // Horizontal Movement
             {
+                float horizontalInput = playerInput.HorizontalInput;
+                
                 bool canIGoRight = true;
                 foreach (Collider2D wall in walls)
                 {
@@ -105,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
                     canIGoLeft = canIGoLeft && wall.transform.position.x > transform.position.x;
                 }
 
-                if ( (!isPressingShootInput || !isOnGround) && (horizontalInput > 0.0f && canIGoRight || horizontalInput < 0.0f && canIGoLeft))
+                if ( (!playerInput.IsPressingShootInput || !isOnGround) && (horizontalInput > 0.0f && canIGoRight || horizontalInput < 0.0f && canIGoLeft))
                 {
                     rb2d.AddForce(horizontalInput * horizontalSpeed * Vector2.right);
                 }
@@ -134,6 +130,8 @@ public class PlayerMovement : MonoBehaviour
 
             // Jumping
             {
+                bool isPressingJumpInput = playerInput.IsPressingJumpInput;
+
                 // Output Logic
                 // NOTE: We are writting on rb2d on every fixed frame. That's not optimized, but let solve this later so
                 // code is more organized now.
@@ -176,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
                             // State Transition Actions
                             shouldDoTriggerJump = false;
                         }
-                        else if (!this.isPressingJumpInput)
+                        else if (!isPressingJumpInput)
                         {
                             // Next State Logic
                             this.jumpState = JumpState.AFTER_RELEASING_JUMP_BUTTON;
@@ -210,7 +208,7 @@ public class PlayerMovement : MonoBehaviour
                         break;
                     case JumpState.STARTING_TRIGGER_JUMP:
                         // State Transition Actions
-                        if (this.isPressingJumpInput)
+                        if (isPressingJumpInput)
                         {
                             this.jumpState = JumpState.BEFORE_RELEASING_JUMP_BUTTON;
                         }
@@ -225,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Shooting
         {
-            if (isPressingShootInput)
+            if (playerInput.IsPressingShootInput)
             {
                 currentCharge = Mathf.Clamp(currentCharge + (chargingSpeed* maxChargingAttackImpulse), 
                                             min: 0.0f, max: maxChargingAttackImpulse);
