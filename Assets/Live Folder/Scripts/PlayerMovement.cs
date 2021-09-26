@@ -35,24 +35,13 @@ public class PlayerMovement : MonoBehaviour
     private JumpState jumpState;
     private List<Collider2D> walls = new List<Collider2D>();
 
-    [Header("Shooting")]
-    [SerializeField]
-    private Transform arrowSpawner = null;
-    [SerializeField]
-    private Transform arrowPrefab = null;
-    
-    [SerializeField]
-    private float maxChargingAttackImpulse = 0.0f;
-    [SerializeField]
-    private float chargingSpeed = 0.0f;
-
-    private float currentCharge;
-
     [Header("Animations")]
     [SerializeField]
-    private SpriteRenderer spriteRenderer = null;
-    [SerializeField]
     private Animator playerAnimator = null;
+    
+    // NOTE: Uncomment for testing if it's useful;
+    // [SerializeField]
+    // private SpriteRenderer spriteRenderer = null;
 
     private void Awake()
     {
@@ -64,15 +53,6 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         this.shouldJump = shouldJump || (Input.GetButtonDown("Jump") && isOnGround);
-
-        // Shooting
-        if (Input.GetButtonUp("Fire1"))
-        {
-            Instantiate(arrowPrefab, arrowSpawner.position, arrowSpawner.rotation)
-                .GetComponent<Bullet>().ApplyImpulse(rb2d.velocity.magnitude + currentCharge);
-
-            currentCharge = 0.0f;
-        }
 
         // Animations
         playerAnimator.SetFloat("horizontal", playerInput.HorizontalInput);
@@ -220,17 +200,6 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-
-        // Shooting
-        {
-            if (playerInput.IsPressingShootInput)
-            {
-                currentCharge = Mathf.Clamp(currentCharge + (chargingSpeed* maxChargingAttackImpulse), 
-                                            min: 0.0f, max: maxChargingAttackImpulse);
-            }
-
-            spriteRenderer.color = Color.Lerp(Color.white, Color.magenta, currentCharge/maxChargingAttackImpulse);
-        }
     }
 
     // Movement
@@ -252,5 +221,10 @@ public class PlayerMovement : MonoBehaviour
     {
         shouldDoTriggerJump = true;
         rb2d.AddForce(impulse, ForceMode2D.Impulse);
+    }
+
+    public float GetVelocityMagnitude()
+    {
+        return rb2d.velocity.magnitude;
     }
 }

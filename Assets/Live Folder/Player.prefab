@@ -261,9 +261,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4257582882981271888}
-  - component: {fileID: 390414148181837276}
   - component: {fileID: 6600181960360427092}
   - component: {fileID: 4257582882981271890}
+  - component: {fileID: 390414148181837276}
   - component: {fileID: 4257582882981271894}
   m_Layer: 3
   m_Name: Player
@@ -290,22 +290,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &390414148181837276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4257582882981271891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dda5519df0844ea4690580b784d2359f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arrowSpawner: {fileID: 0}
-  arrowPrefab: {fileID: 0}
-  maxChargingAttackImpulse: 0
-  chargingSpeed: 0
 --- !u!114 &6600181960360427092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,13 +321,27 @@ MonoBehaviour:
   horizontalSpeed: 100
   horizontalDrag: 10
   initialJumpSpeed: 350
+  playerAnimator: {fileID: 7207398575441052924}
+--- !u!114 &390414148181837276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4257582882981271891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda5519df0844ea4690580b784d2359f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 4257582882981271890}
+  playerInput: {fileID: 6600181960360427092}
+  spriteRenderer: {fileID: 3894361417348896889}
   arrowSpawner: {fileID: 3304028519734275513}
   arrowPrefab: {fileID: 1038740789746583231, guid: 088e53033ae3e774891b527651c3dbe1,
     type: 3}
   maxChargingAttackImpulse: 20
   chargingSpeed: 0.1
-  spriteRenderer: {fileID: 3894361417348896889}
-  playerAnimator: {fileID: 7207398575441052924}
 --- !u!50 &4257582882981271894
 Rigidbody2D:
   serializedVersion: 4
