@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
+    // Comentario homenageando apecuca
+
     [SerializeField]
     private PlayerMovement playerMovement = null;
     [SerializeField]
