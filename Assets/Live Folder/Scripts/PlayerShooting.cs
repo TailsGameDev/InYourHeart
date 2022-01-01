@@ -31,7 +31,7 @@ public class PlayerShooting : MonoBehaviour
         if (Input.GetButtonUp("Fire1"))
         {
             Instantiate(arrowPrefab, arrowSpawner.position, arrowSpawner.rotation)
-                .GetComponent<Bullet>().ApplyImpulse(playerMovement.GetVelocityMagnitude() + currentCharge);
+                .GetComponent<HeartArrow>().ApplyImpulse(playerMovement.GetVelocityMagnitude() + currentCharge);
 
             currentCharge = 0.0f;
         }

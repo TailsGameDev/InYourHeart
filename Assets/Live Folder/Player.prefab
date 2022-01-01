@@ -340,7 +340,7 @@ MonoBehaviour:
   arrowSpawner: {fileID: 3304028519734275513}
   arrowPrefab: {fileID: 1038740789746583231, guid: 088e53033ae3e774891b527651c3dbe1,
     type: 3}
-  maxChargingAttackImpulse: 20
+  maxChargingAttackImpulse: 30
   chargingSpeed: 0.1
 --- !u!50 &4257582882981271894
 Rigidbody2D:
@@ -452,7 +452,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

@@ -38,7 +38,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Animations")]
     [SerializeField]
     private Animator playerAnimator = null;
-    
+
+    private static PlayerMovement instance;
+
+    public static Vector3 Position { get => instance.transform.position; }
+
     // NOTE: Uncomment for testing if it's useful;
     // [SerializeField]
     // private SpriteRenderer spriteRenderer = null;
@@ -48,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
         // NOTE: this shouln't be in this script. When some other script like GameManager or similar is created
         // please take the next line to that new script.
         Application.targetFrameRate = 30;
+
+        instance = this;
     }
 
     private void Update()
