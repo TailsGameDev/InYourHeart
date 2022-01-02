@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 1945081125584670688}
   - component: {fileID: 6297734751023348975}
   - component: {fileID: 6725335772763452231}
+  - component: {fileID: 7850801532439452221}
+  - component: {fileID: 279349040497831314}
   m_Layer: 0
   m_Name: Stress Bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,3 +120,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7850801532439452221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066365942067191626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbdc214a4669d464baddb703a16f3064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterTypeToHit: 1
+  minDamage: 10
+  maxDamage: 10
+  spawnSFXs: []
+  minPitch: 0
+  maxPitch: 0
+--- !u!58 &279349040497831314
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066365942067191626}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.05999994, y: 0.05999994}
+  serializedVersion: 2
+  m_Radius: 1.54

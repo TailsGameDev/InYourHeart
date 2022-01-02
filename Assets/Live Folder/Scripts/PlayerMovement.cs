@@ -39,9 +39,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Animator playerAnimator = null;
 
+    private TransformWrapper transformWrapper;
+
     private static PlayerMovement instance;
 
-    public static Vector3 Position { get => instance.transform.position; }
+    public static Vector3 Position { get => Instance.transformWrapper.Position; }
+    public static PlayerMovement Instance { get => instance; }
 
     // NOTE: Uncomment for testing if it's useful;
     // [SerializeField]
@@ -54,6 +57,8 @@ public class PlayerMovement : MonoBehaviour
         Application.targetFrameRate = 30;
 
         instance = this;
+
+        transformWrapper = new TransformWrapper(transform);
     }
 
     private void Update()

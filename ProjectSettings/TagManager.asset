@@ -18,6 +18,7 @@ TagManager:
   - heartArrow
   - PastBoss
   - wall
+  - Bullet
   layers:
   - Default
   - TransparentFX
