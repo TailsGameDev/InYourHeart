@@ -29,6 +29,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float initialJumpSpeed = 0.0f;
 
+    [SerializeField]
+    private float reduceYSpeedOnReleaseJumpInputMultiplier = 0.0f;
+
     private bool isOnGround;
     private bool shouldJump;
     private bool shouldDoTriggerJump;
@@ -40,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
     private Animator playerAnimator = null;
 
     private TransformWrapper transformWrapper;
+
+    private JumpStateClass currentJumpStateClass;
 
     private static PlayerMovement instance;
     public static readonly string TAG = "Player";
@@ -55,11 +60,13 @@ public class PlayerMovement : MonoBehaviour
     {
         // NOTE: this shouln't be in this script. When some other script like GameManager or similar is created
         // please take the next line to that new script.
-        Application.targetFrameRate = 30;
+        Application.targetFrameRate = 60;
 
         instance = this;
 
         transformWrapper = new TransformWrapper(transform);
+
+        currentJumpStateClass = new NotJumping();
     }
 
     private void Update()
@@ -124,99 +131,164 @@ public class PlayerMovement : MonoBehaviour
 
             // Jumping
             {
-                bool isPressingJumpInput = playerInput.IsPressingJumpInput;
+                JumpStateClass nextJumpStateClass = currentJumpStateClass.GetNextState(this);
 
-                // Output Logic
-                // NOTE: We are writting on rb2d on every fixed frame. That's not optimized, but let solve this later so
-                // code is more organized now.
-                switch (jumpState)
+                if (nextJumpStateClass != currentJumpStateClass)
                 {
-                    case JumpState.NOT_JUMPING:
-                        rb2d.gravityScale = 5.0f;
-                        break;
-                    case JumpState.BEFORE_RELEASING_JUMP_BUTTON:
-                        rb2d.gravityScale = 2.0f;
-                        break;
-                    case JumpState.AFTER_RELEASING_JUMP_BUTTON:
-                        rb2d.gravityScale = 5.0f;
-                        break;
-                    case JumpState.STARTING_TRIGGER_JUMP:
-                        rb2d.gravityScale = 3.5f;
-                        break;
+                    nextJumpStateClass.Initialize(this);
                 }
 
-                // Next State Logic and State Transition Actions
-                void StartTriggerJump()
-                {
-                    // Next State Logic
-                    this.jumpState = JumpState.STARTING_TRIGGER_JUMP;
-
-                    // State Transition Actions
-                    shouldDoTriggerJump = false;
-                }
-                switch (jumpState) 
-                {
-                    case JumpState.NOT_JUMPING:
-                        if (shouldDoTriggerJump)
-                        {
-                            StartTriggerJump();
-                        }
-                        if (this.shouldJump)
-                        {
-                            // Next State Logic
-                            this.jumpState = JumpState.BEFORE_RELEASING_JUMP_BUTTON;
-                        
-                            // State Transition Actions
-                            this.shouldJump = false;
-                            rb2d.AddForce(Vector2.up * initialJumpSpeed);
-                        }
-                        break;
-                    case JumpState.BEFORE_RELEASING_JUMP_BUTTON:
-                        if (shouldDoTriggerJump)
-                        {
-                            StartTriggerJump();
-                        }
-                        else if (!isPressingJumpInput)
-                        {
-                            // Next State Logic
-                            this.jumpState = JumpState.AFTER_RELEASING_JUMP_BUTTON;
-
-                            // State Transition Actions
-                            if (rb2d.velocity.y > 0.0f)
-                            {
-                                rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y * 0.5f);
-                            }
-                        }
-                        else if (isOnGround && rb2d.velocity.y > 0.0f)
-                        {
-                            // Next State Logic
-                            this.jumpState = JumpState.NOT_JUMPING;
-                        }
-                        break;
-                    case JumpState.AFTER_RELEASING_JUMP_BUTTON:
-                        if (shouldDoTriggerJump)
-                        {
-                            StartTriggerJump();
-                        }
-                        else if (this.isOnGround)
-                        {
-                            // Next State Logic
-                            this.jumpState = JumpState.NOT_JUMPING;
-                        }
-                        break;
-                    case JumpState.STARTING_TRIGGER_JUMP:
-                        // State Transition Actions
-                        if (isPressingJumpInput)
-                        {
-                            this.jumpState = JumpState.BEFORE_RELEASING_JUMP_BUTTON;
-                        }
-                        else if (this.isOnGround)
-                        {
-                            this.jumpState = JumpState.NOT_JUMPING;
-                        }
-                        break;
-                }
+                currentJumpStateClass = nextJumpStateClass;
             }
+        }
+    }
+    private abstract class JumpStateClass
+    {
+        public abstract void Initialize(PlayerMovement playerMovement);
+        public abstract JumpStateClass GetNextState(PlayerMovement playerMovement);
+    }
+    private class NotJumping : JumpStateClass
+    {
+        public override void Initialize(PlayerMovement playerMovement)
+        {
+            playerMovement.rb2d.gravityScale = 4.0f;
+        }
+        public override JumpStateClass GetNextState(PlayerMovement playerMovement)
+        {
+            JumpStateClass nextState = this;
+
+            if (playerMovement.shouldDoTriggerJump)
+            {
+                nextState = new StartTriggerJumpClass();
+            }
+            if (playerMovement.shouldJump)
+            {
+                nextState = new BeforeReleasingJumpButton(shouldApplyForceOnInitialize: true);
+            }
+
+            return nextState;
+        }
+    }
+    private class BeforeReleasingJumpButton : JumpStateClass
+    {
+        private bool shouldApplyForceOnInitialize;
+
+        public BeforeReleasingJumpButton(bool shouldApplyForceOnInitialize)
+        {
+            this.shouldApplyForceOnInitialize = shouldApplyForceOnInitialize;
+        }
+        public override void Initialize(PlayerMovement playerMovement)
+        {
+            playerMovement.shouldJump = false;
+            if (shouldApplyForceOnInitialize)
+            {
+                playerMovement.rb2d.AddForce(Vector2.up * playerMovement.initialJumpSpeed);
+            }
+            playerMovement.rb2d.gravityScale = 2.0f;
+        }
+        public override JumpStateClass GetNextState(PlayerMovement playerMovement)
+        {
+            JumpStateClass nextState = this;
+
+            if (playerMovement.shouldDoTriggerJump)
+            {
+                nextState = new StartTriggerJumpClass();
+            }
+            else if (!playerMovement.playerInput.IsPressingJumpInput)
+            {
+                nextState = new AfterReleasingJumpButton();
+            }
+            // TODO: test without the velocity check
+            else if (playerMovement.isOnGround && playerMovement.rb2d.velocity.y > 0.0f)
+            {
+                nextState = new NotJumping();
+            }
+
+            return nextState;
+        }
+    }
+    private class AfterReleasingJumpButton : JumpStateClass
+    {
+        public AfterReleasingJumpButton()
+        {
+        }
+        public override void Initialize(PlayerMovement playerMovement)
+        {
+            playerMovement.rb2d.gravityScale = 4.0f;
+
+            Rigidbody2D rb2d = playerMovement.rb2d;
+            if (rb2d.velocity.y > 0.0f)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x,
+                    playerMovement.reduceYSpeedOnReleaseJumpInputMultiplier * rb2d.velocity.y);
+            }
+        }
+        public override JumpStateClass GetNextState(PlayerMovement playerMovement)
+        {
+            JumpStateClass nextJumpState = this;
+
+            if (playerMovement.shouldDoTriggerJump)
+            {
+                nextJumpState = new StartTriggerJumpClass();
+            }
+            else if (playerMovement.isOnGround)
+            {
+                nextJumpState = new NotJumping();
+            }
+
+            return nextJumpState;
+        }
+    }
+    private class StartTriggerJumpClass : JumpStateClass
+    {
+        public override void Initialize(PlayerMovement playerMovement)
+        {
+            playerMovement.rb2d.gravityScale = 3.5f;
+
+            playerMovement.shouldDoTriggerJump = false;
+        }
+        public override JumpStateClass GetNextState(PlayerMovement playerMovement)
+        {
+            JumpStateClass nextState = this;
+
+            if (playerMovement.playerInput.IsPressingJumpInput)
+            {
+                // Don't apply force as it should have been applied already
+                // on playerMovement.ApplyJumpTriggerImpulse method
+                nextState = new BeforeReleasingJumpButton(shouldApplyForceOnInitialize: false);
+            }
+            else if (playerMovement.isOnGround)
+            {
+                nextState = new NotJumping();
+            }
+
+            return nextState;
+        }
+    }
+    private class TriggerJumping : JumpStateClass
+    {
+        public override void Initialize(PlayerMovement playerMovement)
+        {
+            playerMovement.shouldJump = false;
+            playerMovement.shouldDoTriggerJump = false;
+            playerMovement.rb2d.gravityScale = 2.0f;
+        }
+        public override JumpStateClass GetNextState(PlayerMovement playerMovement)
+        {
+            JumpStateClass nextState = this;
+
+            if (playerMovement.playerInput.IsPressingJumpInput)
+            {
+                // Don't apply impulse as it's already doing a jump
+                nextState = new BeforeReleasingJumpButton(shouldApplyForceOnInitialize: false);
+            }
+            // TODO: test without the velocity check
+            else if (playerMovement.isOnGround && playerMovement.rb2d.velocity.y > 0.0f)
+            {
+                nextState = new NotJumping();
+            }
+
+            return nextState;
         }
     }
 

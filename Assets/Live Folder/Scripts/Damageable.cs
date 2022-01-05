@@ -20,7 +20,7 @@ public class Damageable : MonoBehaviour
 
     private System.Action onDamageTaken;
 
-    private static readonly string HEAL_TAG = "Heal";
+    // private static readonly string HEAL_TAG = "Heal";
 
     public float CurrentLife { get => currentLife; }
     public float MaxLife { get => maxLife; }

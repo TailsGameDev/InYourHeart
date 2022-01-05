@@ -321,6 +321,7 @@ MonoBehaviour:
   horizontalSpeed: 100
   horizontalDrag: 10
   initialJumpSpeed: 350
+  reduceYSpeedOnReleaseJumpInputMultiplier: 0.25
   playerAnimator: {fileID: 7207398575441052924}
 --- !u!114 &390414148181837276
 MonoBehaviour:
