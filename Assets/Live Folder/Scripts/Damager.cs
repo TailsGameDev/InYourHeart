@@ -24,6 +24,8 @@ public class Damager : MonoBehaviour
     [SerializeField]
     private float maxPitch = 0.0f;
 
+    [SerializeField] private bool destroyOnDamageDealt = true;
+
     public int Damage {
         get {
             return (int)Random.Range(minDamage, maxDamage);
@@ -46,6 +48,9 @@ public class Damager : MonoBehaviour
 
     public void OnDamageDealt()
     {
-        Destroy(gameObject);
+        if (destroyOnDamageDealt)
+        {
+            Destroy(gameObject);
+        }
     }
 }

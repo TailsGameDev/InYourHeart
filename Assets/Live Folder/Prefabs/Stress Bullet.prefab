@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6725335772763452231}
   - component: {fileID: 7850801532439452221}
   - component: {fileID: 279349040497831314}
+  - component: {fileID: 1396605101079856084}
   m_Layer: 0
   m_Name: Stress Bullet
   m_TagString: Bullet
@@ -72,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1429119241
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 394e3988e7c3fe8499e3cda1f145d9af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -138,6 +139,7 @@ MonoBehaviour:
   spawnSFXs: []
   minPitch: 0
   maxPitch: 0
+  destroyOnDamageDealt: 1
 --- !u!58 &279349040497831314
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -154,3 +156,16 @@ CircleCollider2D:
   m_Offset: {x: -0.05999994, y: 0.05999994}
   serializedVersion: 2
   m_Radius: 1.54
+--- !u!114 &1396605101079856084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066365942067191626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9203d7cc8a34bde4cb14ce8e5956a22d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToDestruction: 5

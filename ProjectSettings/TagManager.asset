@@ -19,6 +19,8 @@ TagManager:
   - PastBoss
   - wall
   - Bullet
+  - Enemy
+  - Damager
   layers:
   - Default
   - TransparentFX
@@ -27,7 +29,7 @@ TagManager:
   - Water
   - UI
   - JumpTrigger
-  - 
+  - CheckPoint
   - 
   - 
   - 
@@ -58,6 +60,9 @@ TagManager:
     locked: 0
   - name: background
     uniqueID: 528655271
+    locked: 0
+  - name: HeartArrow
+    uniqueID: 4131444491
     locked: 0
   - name: scenario
     uniqueID: 2637471441

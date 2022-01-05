@@ -42,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
     private TransformWrapper transformWrapper;
 
     private static PlayerMovement instance;
+    public static readonly string TAG = "Player";
 
     public static Vector3 Position { get => Instance.transformWrapper.Position; }
     public static PlayerMovement Instance { get => instance; }
@@ -92,7 +93,8 @@ public class PlayerMovement : MonoBehaviour
                     canIGoLeft = canIGoLeft && wall.transform.position.x > transform.position.x;
                 }
 
-                if ( (!playerInput.IsPressingShootInput || !isOnGround) && (horizontalInput > 0.0f && canIGoRight || horizontalInput < 0.0f && canIGoLeft))
+                if (/*(!playerInput.IsPressingShootInput || !isOnGround) &&*/
+                    (horizontalInput > 0.0f && canIGoRight || horizontalInput < 0.0f && canIGoLeft))
                 {
                     rb2d.AddForce(horizontalInput * horizontalSpeed * Vector2.right);
                 }
@@ -116,7 +118,8 @@ public class PlayerMovement : MonoBehaviour
             // Is on ground
             {
                 this.isOnGround = Physics2D.Raycast(bottomRaycastOrigin.transform.position, -Vector2.up, distance: 0.1f, 
-                                   layerMask: (LayerMask.NameToLayer("Player") | LayerMask.NameToLayer("JumpTrigger")));
+                                   layerMask: (LayerMask.NameToLayer("Player") | /*Ignore Raycast*/ (1 << 2)
+                                   | LayerMask.NameToLayer("JumpTrigger") | LayerMask.NameToLayer("CheckPoint") ));
             }
 
             // Jumping
@@ -143,9 +146,21 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 // Next State Logic and State Transition Actions
+                void StartTriggerJump()
+                {
+                    // Next State Logic
+                    this.jumpState = JumpState.STARTING_TRIGGER_JUMP;
+
+                    // State Transition Actions
+                    shouldDoTriggerJump = false;
+                }
                 switch (jumpState) 
                 {
                     case JumpState.NOT_JUMPING:
+                        if (shouldDoTriggerJump)
+                        {
+                            StartTriggerJump();
+                        }
                         if (this.shouldJump)
                         {
                             // Next State Logic
@@ -159,11 +174,7 @@ public class PlayerMovement : MonoBehaviour
                     case JumpState.BEFORE_RELEASING_JUMP_BUTTON:
                         if (shouldDoTriggerJump)
                         {
-                            // Next State Logic
-                            this.jumpState = JumpState.STARTING_TRIGGER_JUMP;
-
-                            // State Transition Actions
-                            shouldDoTriggerJump = false;
+                            StartTriggerJump();
                         }
                         else if (!isPressingJumpInput)
                         {
@@ -185,11 +196,7 @@ public class PlayerMovement : MonoBehaviour
                     case JumpState.AFTER_RELEASING_JUMP_BUTTON:
                         if (shouldDoTriggerJump)
                         {
-                            // Next State Logic
-                            this.jumpState = JumpState.STARTING_TRIGGER_JUMP;
-
-                            // State Transition Actions
-                            shouldDoTriggerJump = false;
+                            StartTriggerJump();
                         }
                         else if (this.isOnGround)
                         {
@@ -216,14 +223,14 @@ public class PlayerMovement : MonoBehaviour
     // Movement
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "wall")
+        if (col.tag == "scenario")
         {
             walls.Add(col);
         }
     }
     private void OnTriggerExit2D(Collider2D col)
     {
-        if (col.tag == "wall")
+        if (col.tag == "scenario")
         {
             walls.Remove(col);
         }
@@ -231,11 +238,23 @@ public class PlayerMovement : MonoBehaviour
     public void ApplyJumpTriggerImpulse(Vector3 impulse)
     {
         shouldDoTriggerJump = true;
+        
+        // Set velocity to zero to get more stability and avoid 
+        // the player to jump naturally in the same frame
+        Vector2 vel = rb2d.velocity;
+        vel.y = 0.0f;
+        rb2d.velocity = vel;
+
         rb2d.AddForce(impulse, ForceMode2D.Impulse);
     }
 
     public float GetVelocityMagnitude()
     {
         return rb2d.velocity.magnitude;
+    }
+
+    public void SetParent(TransformWrapper parent)
+    {
+        transformWrapper.SetParent(parent);
     }
 }

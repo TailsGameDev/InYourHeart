@@ -18,7 +18,7 @@ public class Damageable : MonoBehaviour
     private float currentLife;
     private TransformWrapper transformWrapper;
 
-    private static System.Action onDamageTaken;
+    private System.Action onDamageTaken;
 
     private static readonly string HEAL_TAG = "Heal";
 
@@ -36,23 +36,30 @@ public class Damageable : MonoBehaviour
         onDamageTaken = null;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        OnTriggerEnter2D(collision.collider);
+    }
+
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == Bullet.TAG)
+        Damager damager = damager = col.GetComponent<Damager>();
+        if (damager != null)
         {
-            Damager damager = col.GetComponent<Damager>();
-            if (damager.CharacterTypeToHit.ToString() == tag)
+            float damage = damager.Damage;
+            if (damage >= 0)
+            {
+                if (damager.CharacterTypeToHit.ToString() == tag)
+                {
+                    damager.OnDamageDealt();
+                    OnDamageTaken(damager.Damage);
+                }
+            }
+            else
             {
                 damager.OnDamageDealt();
-                OnDamageTaken(damager.Damage);
+                OnHeal(damage);
             }
-        }
-        else if (col.tag == HEAL_TAG)
-        {
-            Damager damager = col.GetComponent<Damager>();
-            float damage = damager.Damage;
-            damager.OnDamageDealt();
-            OnHeal(damage);
         }
     }
     public void OnDamageTaken(float damage)

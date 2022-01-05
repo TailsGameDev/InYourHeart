@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 5061354826766248145}
   - component: {fileID: 5754356862076267054}
   - component: {fileID: 7212693374447784809}
+  - component: {fileID: 5420151491674609499}
+  - component: {fileID: 5808870022319425759}
   m_Layer: 0
   m_Name: OfficeStress
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4566449636944865135}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.2016964, y: 7.207983, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3303, y: 0.3303, z: 0.3303}
   m_Children:
   - {fileID: 6585896280698427954}
   m_Father: {fileID: 0}
@@ -71,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -982392809
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5899a33ab9bc7364e8eb67e900111586, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -116,6 +118,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435f6988d7e08ad41aa350b3e8d1749d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageable: {fileID: 5420151491674609499}
+  damageAnimationTime: 0.25
+  animator: {fileID: 5754356862076267054}
+  spriteRenderer: {fileID: 5061354826766248145}
+  damagedColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &5420151491674609499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566449636944865135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 202ebef4ae2cf0c4faedd847d7e1052a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 50
+  deadBody: {fileID: 1663487330347774167, guid: 1dfbfc74955a44f4d8bde0fcbb6e146c,
+    type: 3}
+--- !u!70 &5808870022319425759
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566449636944865135}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.7496846, y: -1.1426772}
+  m_Size: {x: 3.6859107, y: 5.3943872}
+  m_Direction: 0
 --- !u!1 &5312959374610092764
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,3 +199,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletToSpawn: {fileID: 6297734751023348975, guid: 3aa81ac035970774eb3ca98da399c9f1,
     type: 3}
+  maxSqrDistanceFromTarget: 106
