@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private float reduceYSpeedOnReleaseJumpInputMultiplier = 0.0f;
+    [SerializeField]
+    private float ySpeedOnStartJumpMultiplier = 0.0f;
 
     private bool isOnGround;
     private bool shouldJump;
@@ -133,6 +135,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 JumpStateClass nextJumpStateClass = currentJumpStateClass.GetNextState(this);
 
+                Debug.LogError("state: "+ nextJumpStateClass.GetType());
+
                 if (nextJumpStateClass != currentJumpStateClass)
                 {
                     nextJumpStateClass.Initialize(this);
@@ -172,6 +176,7 @@ public class PlayerMovement : MonoBehaviour
     private class BeforeReleasingJumpButton : JumpStateClass
     {
         private bool shouldApplyForceOnInitialize;
+        private bool leftTheGround;
 
         public BeforeReleasingJumpButton(bool shouldApplyForceOnInitialize)
         {
@@ -182,12 +187,26 @@ public class PlayerMovement : MonoBehaviour
             playerMovement.shouldJump = false;
             if (shouldApplyForceOnInitialize)
             {
-                playerMovement.rb2d.AddForce(Vector2.up * playerMovement.initialJumpSpeed);
+                // Multiply Y velocity as it's not ideal to sum the current velocity
+                // neither to reduce it to zero before jumping.
+                Vector2 velAux = playerMovement.rb2d.velocity;
+                velAux.y = velAux.y * playerMovement.ySpeedOnStartJumpMultiplier;
+                playerMovement.rb2d.velocity = velAux;
+
+                playerMovement.rb2d.AddForce(Vector2.up * playerMovement.initialJumpSpeed, 
+                                                ForceMode2D.Impulse);
             }
             playerMovement.rb2d.gravityScale = 2.0f;
         }
         public override JumpStateClass GetNextState(PlayerMovement playerMovement)
         {
+            // NOTE: leftTheGround management should be in an Update() method, but,
+            // only this is not enugh to implement Update method in all states
+            if (!playerMovement.isOnGround)
+            {
+                leftTheGround = true;
+            }
+
             JumpStateClass nextState = this;
 
             if (playerMovement.shouldDoTriggerJump)
@@ -199,7 +218,7 @@ public class PlayerMovement : MonoBehaviour
                 nextState = new AfterReleasingJumpButton();
             }
             // TODO: test without the velocity check
-            else if (playerMovement.isOnGround && playerMovement.rb2d.velocity.y > 0.0f)
+            else if (playerMovement.isOnGround && leftTheGround)
             {
                 nextState = new NotJumping();
             }
@@ -257,10 +276,12 @@ public class PlayerMovement : MonoBehaviour
                 // on playerMovement.ApplyJumpTriggerImpulse method
                 nextState = new BeforeReleasingJumpButton(shouldApplyForceOnInitialize: false);
             }
+            /*
             else if (playerMovement.isOnGround)
             {
                 nextState = new NotJumping();
             }
+            */
 
             return nextState;
         }
@@ -310,7 +331,7 @@ public class PlayerMovement : MonoBehaviour
     public void ApplyJumpTriggerImpulse(Vector3 impulse)
     {
         shouldDoTriggerJump = true;
-        
+
         // Set velocity to zero to get more stability and avoid 
         // the player to jump naturally in the same frame
         Vector2 vel = rb2d.velocity;

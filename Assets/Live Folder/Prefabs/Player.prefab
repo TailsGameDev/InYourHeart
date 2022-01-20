@@ -320,8 +320,9 @@ MonoBehaviour:
   flipXObject: {fileID: 2091361553751038032}
   horizontalSpeed: 100
   horizontalDrag: 10
-  initialJumpSpeed: 350
-  reduceYSpeedOnReleaseJumpInputMultiplier: 0.25
+  initialJumpSpeed: 12.5
+  reduceYSpeedOnReleaseJumpInputMultiplier: 0.75
+  ySpeedOnStartJumpMultiplier: 0.42
   playerAnimator: {fileID: 7207398575441052924}
 --- !u!114 &390414148181837276
 MonoBehaviour:
