@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        this.shouldJump = shouldJump || (Input.GetButtonDown("Jump") && isOnGround);
+        this.shouldJump = shouldJump || (playerInput.GetJumpButtonDown() && isOnGround);
 
         // Animations
         playerAnimator.SetFloat("horizontal", playerInput.HorizontalInput);
@@ -128,14 +128,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 this.isOnGround = Physics2D.Raycast(bottomRaycastOrigin.transform.position, -Vector2.up, distance: 0.1f, 
                                    layerMask: (LayerMask.NameToLayer("Player") | /*Ignore Raycast*/ (1 << 2)
-                                   | LayerMask.NameToLayer("JumpTrigger") | LayerMask.NameToLayer("CheckPoint") ));
+                                   | LayerMask.NameToLayer("JumpTrigger") | LayerMask.NameToLayer("InvisibleStuff") ));
             }
 
             // Jumping
             {
                 JumpStateClass nextJumpStateClass = currentJumpStateClass.GetNextState(this);
-
-                Debug.LogError("state: "+ nextJumpStateClass.GetType());
 
                 if (nextJumpStateClass != currentJumpStateClass)
                 {
@@ -260,6 +258,8 @@ public class PlayerMovement : MonoBehaviour
     }
     private class StartTriggerJumpClass : JumpStateClass
     {
+        private bool leftTheGround;
+
         public override void Initialize(PlayerMovement playerMovement)
         {
             playerMovement.rb2d.gravityScale = 3.5f;
@@ -268,6 +268,15 @@ public class PlayerMovement : MonoBehaviour
         }
         public override JumpStateClass GetNextState(PlayerMovement playerMovement)
         {
+            // NOTE: the next lines take advantage of the fact this method executes every frame
+            // to set properlt the leftTheGround attribute
+            // Update
+            if (!playerMovement.isOnGround)
+            {
+                this.leftTheGround = true;
+            }
+
+            // GetNextState
             JumpStateClass nextState = this;
 
             if (playerMovement.playerInput.IsPressingJumpInput)
@@ -276,12 +285,10 @@ public class PlayerMovement : MonoBehaviour
                 // on playerMovement.ApplyJumpTriggerImpulse method
                 nextState = new BeforeReleasingJumpButton(shouldApplyForceOnInitialize: false);
             }
-            /*
-            else if (playerMovement.isOnGround)
+            else if (leftTheGround && playerMovement.isOnGround)
             {
                 nextState = new NotJumping();
             }
-            */
 
             return nextState;
         }
