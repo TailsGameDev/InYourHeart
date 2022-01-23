@@ -1553,7 +1553,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 513}
-  - component: {fileID: 537}
   m_Layer: 7
   m_Name: Player Spawner
   m_TagString: Untagged
@@ -7790,21 +7789,6 @@ Transform:
   m_Father: {fileID: 574}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -145.5}
---- !u!114 &537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc4ec023103095d45b708c6f60e1f59f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 4257582882981271888, guid: 0e2812965c556bd42bf1ce0e090d49be,
-    type: 3}
-  firstCheckpointInTheLevel: {fileID: 463}
 --- !u!4 &538
 Transform:
   m_ObjectHideFlags: 0
@@ -41105,6 +41089,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 1 Each Scene
       objectReference: {fileID: 0}
+    - target: {fileID: 8635789808191024190, guid: cd4a3bce58a286742b25c17a738b5452,
+        type: 3}
+      propertyPath: firstCheckpointInTheLevel
+      value: 
+      objectReference: {fileID: 463}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd4a3bce58a286742b25c17a738b5452, type: 3}
 --- !u!1 &1683169622

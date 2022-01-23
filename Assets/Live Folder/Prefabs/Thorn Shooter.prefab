@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 5350557741252145616}
   - component: {fileID: 5350557741252145421}
   m_Layer: 0
-  m_Name: rastejante
+  m_Name: Thorn Shooter
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
