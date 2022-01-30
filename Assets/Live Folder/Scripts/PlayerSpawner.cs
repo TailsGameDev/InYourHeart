@@ -13,12 +13,12 @@ public class PlayerSpawner : PlayerSpawnSystem
 
     private void Awake()
     {
-        if (CurrentSpawnPoint == null)
+        if (!IsCurrentSpawnPointValid)
         {
-            CurrentSpawnPoint = firstCheckpointInTheLevel;
+            CurrentSpawnPoint = firstCheckpointInTheLevel.position;
+            IsCurrentSpawnPointValid = true;
         }
-
-        Instantiate(playerPrefab, CurrentSpawnPoint.position, CurrentSpawnPoint.rotation);
+        Instantiate(playerPrefab, CurrentSpawnPoint, Quaternion.identity);
     }
 
     private void Update()
@@ -36,8 +36,11 @@ public class PlayerSpawner : PlayerSpawnSystem
 
 public class PlayerSpawnSystem : MonoBehaviour
 {
-    private static Transform currentSpawnPoint = null;
+    private static bool isCurrentSpawnPointValid;
+    private static Vector3 currentSpawnPoint;
 
-    protected static Transform CurrentSpawnPoint 
+    protected static Vector3 CurrentSpawnPoint 
         { get => currentSpawnPoint; set => currentSpawnPoint = value; }
+    public static bool IsCurrentSpawnPointValid 
+        { get => isCurrentSpawnPointValid; set => isCurrentSpawnPointValid = value; }
 }

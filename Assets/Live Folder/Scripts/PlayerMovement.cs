@@ -88,16 +88,23 @@ public class PlayerMovement : MonoBehaviour
         if (movementEnabled)
         {
             this.shouldJump = shouldJump || (playerInput.GetJumpButtonDown() && isOnGround);
-
-            // Animations
-            playerAnimator.SetFloat("horizontal", playerInput.HorizontalInput);
-            playerAnimator.SetBool("isOnGround", isOnGround);
-            playerAnimator.SetBool("Fire1", playerInput.IsPressingShootInput);
+            
         }
+
+        // Send 0.0f to "horizontal" so it animates like idle if movement is disabled
+        playerAnimator.SetFloat("horizontal", movementEnabled?playerInput.HorizontalInput:0.0f);
+        playerAnimator.SetBool("Fire1", playerInput.IsPressingShootInput && movementEnabled);
+        playerAnimator.SetBool("isOnGround", isOnGround);
     }
 
     private void FixedUpdate()
     {
+        // Is on ground
+        {
+            this.isOnGround = Physics2D.Raycast(bottomRaycastOrigin.transform.position, -Vector2.up, distance: 0.1f,
+                               layerMask: (LayerMask.NameToLayer("Player") | /*Ignore Raycast*/ (1 << 2)
+                               | LayerMask.NameToLayer("JumpTrigger") | LayerMask.NameToLayer("InvisibleStuff")));
+        }
 
         // Movement
         if (movementEnabled)
@@ -138,13 +145,6 @@ public class PlayerMovement : MonoBehaviour
 
                 // Drag
                 rb2d.AddForce( horizontalDrag * rb2d.velocity.x * - Vector2.right);
-            }
-
-            // Is on ground
-            {
-                this.isOnGround = Physics2D.Raycast(bottomRaycastOrigin.transform.position, -Vector2.up, distance: 0.1f, 
-                                   layerMask: (LayerMask.NameToLayer("Player") | /*Ignore Raycast*/ (1 << 2)
-                                   | LayerMask.NameToLayer("JumpTrigger") | LayerMask.NameToLayer("InvisibleStuff") ));
             }
 
             // Jumping

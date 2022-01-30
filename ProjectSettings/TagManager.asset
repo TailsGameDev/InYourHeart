@@ -61,6 +61,9 @@ TagManager:
   - name: background
     uniqueID: 528655271
     locked: 0
+  - name: BossLife
+    uniqueID: 2619157685
+    locked: 0
   - name: HeartArrow
     uniqueID: 4131444491
     locked: 0
