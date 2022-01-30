@@ -2,25 +2,16 @@ using UnityEngine;
 
 public class BulletSpawner : MonoBehaviour
 {
-    [SerializeField] private Bullet bulletToSpawn = null;
+    [SerializeField] private ShooterEnemyDifficulty difficulty = null;
+    [SerializeField] private ParabolicBullet bulletToSpawn = null;
     [SerializeField] private float maxSqrDistanceFromTarget = 0.0f;
 
-    private float timeToNextShoot;
-    private float shootCooldown;
+    private float timeToNextShot;
 
     private void Start()
     {
-        this.shootCooldown = DifficultyManager.Instance.Difficulty.OfficeStressShootCooldown;
-        this.timeToNextShoot = Time.time + shootCooldown;
+        this.timeToNextShot = Time.time + difficulty.GetShootCooldown();
     }
-
-    /*
-    public void Initialize(float shootCooldown)
-    {
-        this.shootCooldown = shootCooldown;
-        this.timeToNextShoot = Time.time + shootCooldown;
-    }
-    */
 
     private void Update()
     {
@@ -29,12 +20,13 @@ public class BulletSpawner : MonoBehaviour
         {
             enabled = false;
         }
-        else if (timeToNextShoot < Time.time 
+        else if (timeToNextShot < Time.time 
             && maxSqrDistanceFromTarget > Vector3.SqrMagnitude(PlayerMovement.Position - transform.position))
         {
-            timeToNextShoot = Time.time + shootCooldown;
+            timeToNextShot = Time.time + difficulty.GetShootCooldown();
 
-            Instantiate(bulletToSpawn, transform.position, transform.rotation);
+            Instantiate(bulletToSpawn, transform.position, transform.rotation)
+                                    .Initialize(difficulty.GetBulletTimeToHitTarget());
         }
     }
 }

@@ -164,6 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6585896280698427954}
   - component: {fileID: 2337013460031878347}
+  - component: {fileID: 3983921798671752534}
   m_Layer: 0
   m_Name: Bullet Spawner
   m_TagString: Untagged
@@ -197,6 +198,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7249c1b5e94e9f47b01b734016eb229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficulty: {fileID: 3983921798671752534}
   bulletToSpawn: {fileID: 6297734751023348975, guid: 3aa81ac035970774eb3ca98da399c9f1,
     type: 3}
   maxSqrDistanceFromTarget: 106
+--- !u!114 &3983921798671752534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312959374610092764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a19cbfbb98835a64ab8218adc0de90b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultDifficultyLevel: 0
+  difficulties:
+  - difficultyLevel: 0
+    shootCooldown: 2
+    timeBulletTakesToHitTarget: 2
+  - difficultyLevel: 1
+    shootCooldown: 1.5
+    timeBulletTakesToHitTarget: 2
+  - difficultyLevel: 2
+    shootCooldown: 1.2
+    timeBulletTakesToHitTarget: 2
