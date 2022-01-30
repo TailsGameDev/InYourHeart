@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private PlayerInput playerInput = null;
+    [SerializeField]
+    private PlayerShooting playerShooting = null;
 
     [Header("Movement")]
     [SerializeField]
@@ -39,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private bool shouldDoTriggerJump;
     private JumpState jumpState;
     private List<Collider2D> walls = new List<Collider2D>();
+    private bool movementEnabled = true;
 
     [Header("Animations")]
     [SerializeField]
@@ -53,6 +56,15 @@ public class PlayerMovement : MonoBehaviour
 
     public static Vector3 Position { get => Instance.transformWrapper.Position; }
     public static PlayerMovement Instance { get => instance; }
+    public bool MovementEnabled 
+    {
+        set 
+        {
+            rb2d.velocity = new Vector2(0.0f, rb2d.velocity.y);
+            movementEnabled = value;
+            playerShooting.enabled = value;
+        }
+    }
 
     // NOTE: Uncomment for testing if it's useful;
     // [SerializeField]
@@ -73,18 +85,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        this.shouldJump = shouldJump || (playerInput.GetJumpButtonDown() && isOnGround);
+        if (movementEnabled)
+        {
+            this.shouldJump = shouldJump || (playerInput.GetJumpButtonDown() && isOnGround);
 
-        // Animations
-        playerAnimator.SetFloat("horizontal", playerInput.HorizontalInput);
-        playerAnimator.SetBool("isOnGround", isOnGround);
-        playerAnimator.SetBool("Fire1", playerInput.IsPressingShootInput);
+            // Animations
+            playerAnimator.SetFloat("horizontal", playerInput.HorizontalInput);
+            playerAnimator.SetBool("isOnGround", isOnGround);
+            playerAnimator.SetBool("Fire1", playerInput.IsPressingShootInput);
+        }
     }
 
     private void FixedUpdate()
     {
 
         // Movement
+        if (movementEnabled)
         {
             // Horizontal Movement
             {

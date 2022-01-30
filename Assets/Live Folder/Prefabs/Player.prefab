@@ -315,6 +315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 6600181960360427092}
+  playerShooting: {fileID: 390414148181837276}
   rb2d: {fileID: 4257582882981271894}
   bottomRaycastOrigin: {fileID: 4257582883391518363}
   flipXObject: {fileID: 2091361553751038032}
