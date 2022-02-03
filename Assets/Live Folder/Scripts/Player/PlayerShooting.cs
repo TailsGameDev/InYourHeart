@@ -10,8 +10,6 @@ public class PlayerShooting : MonoBehaviour
     private PlayerMovement playerMovement = null;
     [SerializeField]
     private PlayerInput playerInput = null;
-    [SerializeField]
-    private SpriteRenderer spriteRenderer = null;
 
     [SerializeField]
     private Transform arrowSpawner = null;
@@ -47,7 +45,8 @@ public class PlayerShooting : MonoBehaviour
                                             min: 0.0f, max: maxChargingAttackImpulse);
             }
 
-            spriteRenderer.color = Color.Lerp(Color.white, Color.magenta, currentCharge / maxChargingAttackImpulse);
+            // TODO: charge shoot VFX
+            // spriteRenderer.color = Color.Lerp(Color.white, Color.magenta, currentCharge / maxChargingAttackImpulse);
         }
     }
 }

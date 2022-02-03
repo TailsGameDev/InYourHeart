@@ -1,38 +1,23 @@
 using UnityEngine;
 
-public class Damager : MonoBehaviour
+public class InstantDamager : Damager
 {
-    public enum characterType 
-    {
-        Enemy,
-        Player,
-    }
-
-    [SerializeField]
-    private characterType characterTypeToHit;
-
-    [SerializeField]
-    private float minDamage = 0.0f;
-
-    [SerializeField]
-    private float maxDamage = 0.0f;
-
-    [SerializeField]
-    private AudioClip[] spawnSFXs = null;
-    [SerializeField]
-    private float minPitch = 0.0f;
-    [SerializeField]
-    private float maxPitch = 0.0f;
+    [SerializeField] private float minDamage = 0.0f;
+    [SerializeField] private float maxDamage = 0.0f;
 
     [SerializeField] private bool destroyOnDamageDealt = true;
 
-    public int Damage {
-        get {
+    [SerializeField] private AudioClip[] spawnSFXs = null;
+    [SerializeField] private float minPitch = 0.0f;
+    [SerializeField] private float maxPitch = 0.0f;
+
+    public int Damage 
+    {
+        get 
+        {
             return (int)Random.Range(minDamage, maxDamage);
         }
     }
-
-    public characterType CharacterTypeToHit { get => characterTypeToHit; }
 
     private void Awake()
     {
@@ -53,4 +38,18 @@ public class Damager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+}
+
+public class Damager : MonoBehaviour
+{
+    public enum CharacterType
+    {
+        Enemy,
+        Player,
+    }
+
+    [SerializeField]
+    private CharacterType characterTypeToHit;
+
+    public CharacterType CharacterTypeToHit { get => characterTypeToHit; }
 }

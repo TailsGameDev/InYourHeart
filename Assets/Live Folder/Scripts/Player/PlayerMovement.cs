@@ -43,10 +43,6 @@ public class PlayerMovement : MonoBehaviour
     private List<Collider2D> walls = new List<Collider2D>();
     private bool movementEnabled = true;
 
-    [Header("Animations")]
-    [SerializeField]
-    private Animator playerAnimator = null;
-
     private TransformWrapper transformWrapper;
 
     private JumpStateClass currentJumpStateClass;
@@ -58,13 +54,20 @@ public class PlayerMovement : MonoBehaviour
     public static PlayerMovement Instance { get => instance; }
     public bool MovementEnabled 
     {
-        set 
+        get 
         {
-            rb2d.velocity = new Vector2(0.0f, rb2d.velocity.y);
-            movementEnabled = value;
-            playerShooting.enabled = value;
+            return movementEnabled;
         }
     }
+
+    public void SetMovementEnagleAlongWithPlayerShootingAndXSpeed(bool enable)
+    {
+        rb2d.velocity = new Vector2(0.0f, rb2d.velocity.y);
+        movementEnabled = enable;
+        playerShooting.enabled = enable;
+    }
+
+    public bool IsOnGround { get => isOnGround; }
 
     // NOTE: Uncomment for testing if it's useful;
     // [SerializeField]
@@ -74,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // NOTE: this shouln't be in this script. When some other script like GameManager or similar is created
         // please take the next line to that new script.
-        Application.targetFrameRate = 60;
+        // Application.targetFrameRate = 60;
 
         instance = this;
 
@@ -87,14 +90,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (movementEnabled)
         {
-            this.shouldJump = shouldJump || (playerInput.GetJumpButtonDown() && isOnGround);
-            
+            this.shouldJump = shouldJump || (playerInput.GetJumpButtonDown() && isOnGround);   
         }
-
-        // Send 0.0f to "horizontal" so it animates like idle if movement is disabled
-        playerAnimator.SetFloat("horizontal", movementEnabled?playerInput.HorizontalInput:0.0f);
-        playerAnimator.SetBool("Fire1", playerInput.IsPressingShootInput && movementEnabled);
-        playerAnimator.SetBool("isOnGround", isOnGround);
     }
 
     private void FixedUpdate()
@@ -372,5 +369,11 @@ public class PlayerMovement : MonoBehaviour
     public void SetParent(TransformWrapper parent)
     {
         transformWrapper.SetParent(parent);
+    }
+
+    public void ModifySpeedForHitAnimation()
+    {
+        const float ON_HIT_SPEED_MULTIPLIER = 0.0f;
+        rb2d.velocity = rb2d.velocity * ON_HIT_SPEED_MULTIPLIER;
     }
 }

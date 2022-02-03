@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Damageable : MonoBehaviour
@@ -19,6 +17,7 @@ public class Damageable : MonoBehaviour
     private TransformWrapper transformWrapper;
 
     private System.Action onDamageTaken;
+    private System.Action onDamageOverTimeTaken;
 
     // private static readonly string HEAL_TAG = "Heal";
 
@@ -30,20 +29,27 @@ public class Damageable : MonoBehaviour
         currentLife = maxLife;
         transformWrapper = new TransformWrapper(transform);
     }
-
+    public void RegisterOnDamageTaken(System.Action onDamaged)
+    {
+        onDamageTaken += onDamaged;
+    }
+    public void RegisterOnDamageOverTimeTaken(System.Action onDamagedOverTime)
+    {
+        onDamageOverTimeTaken += onDamagedOverTime;
+    }
     private void OnDestroy()
     {
         onDamageTaken = null;
+        onDamageOverTimeTaken = null;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         OnTriggerEnter2D(collision.collider);
     }
-
     private void OnTriggerEnter2D(Collider2D col)
     {
-        Damager damager = damager = col.GetComponent<Damager>();
+        InstantDamager damager = col.GetComponent<InstantDamager>();
         if (damager != null)
         {
             float damage = damager.Damage;
@@ -72,6 +78,10 @@ public class Damageable : MonoBehaviour
 
         onDamageTaken?.Invoke();
 
+        DieIfLifeIsLesserThanZero();
+    }
+    private void DieIfLifeIsLesserThanZero()
+    {
         if (currentLife <= 0.0f)
         {
             if (deadBody != null)
@@ -90,8 +100,18 @@ public class Damageable : MonoBehaviour
         // vfx.Text.text = healAmount.ToString();
     }
 
-    public void RegisterOnDamageTaken(System.Action onDamaged)
+    private void OnTriggerStay2D(Collider2D col)
     {
-        onDamageTaken += onDamaged;
+        ContinuousDamager continuousDamager = col.GetComponent<ContinuousDamager>();
+        if (continuousDamager != null && continuousDamager.CharacterTypeToHit.ToString() == tag)
+        {
+            OnDamageOverTimeTaken(continuousDamager.DamagePerSecond * Time.deltaTime);
+        }
+    }
+    private void OnDamageOverTimeTaken(float damage)
+    {
+        currentLife -= damage;
+        onDamageOverTimeTaken?.Invoke();
+        DieIfLifeIsLesserThanZero();
     }
 }

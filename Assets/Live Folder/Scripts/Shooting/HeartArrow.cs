@@ -48,7 +48,7 @@ public class HeartArrow : Bullet
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        bool hitEnemy = col.tag == Damager.characterType.Enemy.ToString();
+        bool hitEnemy = col.tag == Damager.CharacterType.Enemy.ToString();
         if (hitEnemy || col.tag == "scenario")
         {
             this.shouldRotateWithSpeed = false;
