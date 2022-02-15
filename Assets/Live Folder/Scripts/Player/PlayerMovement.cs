@@ -141,7 +141,29 @@ public class PlayerMovement : MonoBehaviour
                 flipXObject.transform.eulerAngles = anglesForFlipXObject;
 
                 // Drag
-                rb2d.AddForce( horizontalDrag * rb2d.velocity.x * - Vector2.right);
+                {
+                    Vector2 parentVelocity;
+                    {
+                        if (transform.parent != null)
+                        {
+                            Rigidbody2D parentRB2D = transform.parent.GetComponent<Rigidbody2D>();
+                            if (parentRB2D != null)
+                            {
+                                parentVelocity = parentRB2D.velocity;
+                            }
+                            else
+                            {
+                                parentVelocity = Vector2.zero;
+                            }
+                        }
+                        else
+                        {
+                            parentVelocity = Vector2.zero;
+                        }
+                    }
+                    Vector3 relativeVelocity = rb2d.velocity - parentVelocity;
+                    rb2d.AddForce( horizontalDrag * relativeVelocity.x * - Vector2.right);
+                }
             }
 
             // Jumping
@@ -151,9 +173,8 @@ public class PlayerMovement : MonoBehaviour
                 if (nextJumpStateClass != currentJumpStateClass)
                 {
                     nextJumpStateClass.Initialize(this);
+                    currentJumpStateClass = nextJumpStateClass;
                 }
-
-                currentJumpStateClass = nextJumpStateClass;
             }
         }
     }
@@ -361,9 +382,9 @@ public class PlayerMovement : MonoBehaviour
         rb2d.AddForce(impulse, ForceMode2D.Impulse);
     }
 
-    public float GetVelocityMagnitude()
+    public Vector3 GetVelocity()
     {
-        return rb2d.velocity.magnitude;
+        return rb2d.velocity;
     }
 
     public void SetParent(TransformWrapper parent)

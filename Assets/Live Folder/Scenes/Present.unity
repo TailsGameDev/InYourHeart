@@ -1500,10 +1500,10 @@ MonoBehaviour:
   characterTypeToHit: 1
   minDamage: 10000
   maxDamage: 10001
+  destroyOnDamageDealt: 0
   spawnSFXs: []
   minPitch: 0
   maxPitch: 0
-  destroyOnDamageDealt: 0
 --- !u!1 &94
 GameObject:
   m_ObjectHideFlags: 0
@@ -1836,10 +1836,10 @@ MonoBehaviour:
   characterTypeToHit: 1
   minDamage: 10000
   maxDamage: 10001
+  destroyOnDamageDealt: 0
   spawnSFXs: []
   minPitch: 0
   maxPitch: 0
-  destroyOnDamageDealt: 0
 --- !u!1 &115
 GameObject:
   m_ObjectHideFlags: 0
@@ -2319,10 +2319,10 @@ MonoBehaviour:
   characterTypeToHit: 1
   minDamage: 10000
   maxDamage: 10001
+  destroyOnDamageDealt: 0
   spawnSFXs: []
   minPitch: 0
   maxPitch: 0
-  destroyOnDamageDealt: 0
 --- !u!1 &142
 GameObject:
   m_ObjectHideFlags: 0
@@ -2595,10 +2595,10 @@ MonoBehaviour:
   characterTypeToHit: 1
   minDamage: 10000
   maxDamage: 10001
+  destroyOnDamageDealt: 0
   spawnSFXs: []
   minPitch: 0
   maxPitch: 0
-  destroyOnDamageDealt: 0
 --- !u!1 &161
 GameObject:
   m_ObjectHideFlags: 0
@@ -3020,10 +3020,10 @@ MonoBehaviour:
   characterTypeToHit: 1
   minDamage: 10000
   maxDamage: 10001
+  destroyOnDamageDealt: 0
   spawnSFXs: []
   minPitch: 0
   maxPitch: 0
-  destroyOnDamageDealt: 0
 --- !u!1 &185
 GameObject:
   m_ObjectHideFlags: 0
@@ -3265,10 +3265,10 @@ MonoBehaviour:
   characterTypeToHit: 1
   minDamage: 10000
   maxDamage: 10001
+  destroyOnDamageDealt: 0
   spawnSFXs: []
   minPitch: 0
   maxPitch: 0
-  destroyOnDamageDealt: 0
 --- !u!1 &200
 GameObject:
   m_ObjectHideFlags: 0
@@ -3337,9 +3337,9 @@ GameObject:
   - component: {fileID: 479}
   - component: {fileID: 1045}
   - component: {fileID: 791}
-  - component: {fileID: 930}
   - component: {fileID: 1430}
   - component: {fileID: 630}
+  - component: {fileID: 210}
   m_Layer: 0
   m_Name: pen_platform
   m_TagString: scenario
@@ -3461,6 +3461,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6fcb586cdc5a2446b779ddea18467a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movVertical: 1
+  movHorizontal: 0
+  amplitudeY: 6.5
+  amplitudeX: 0
+  velAngular: 1
+  stabilizationForce: 2
+  rb2d: {fileID: 630}
 --- !u!1 &211
 GameObject:
   m_ObjectHideFlags: 0
@@ -3914,6 +3933,7 @@ GameObject:
   - component: {fileID: 809}
   - component: {fileID: 641}
   - component: {fileID: 1457}
+  - component: {fileID: 254}
   m_Layer: 0
   m_Name: mug_platformEsq
   m_TagString: scenario
@@ -3955,10 +3975,10 @@ MonoBehaviour:
   characterTypeToHit: 1
   minDamage: 10000
   maxDamage: 10001
+  destroyOnDamageDealt: 0
   spawnSFXs: []
   minPitch: 0
   maxPitch: 0
-  destroyOnDamageDealt: 0
 --- !u!1 &242
 GameObject:
   m_ObjectHideFlags: 0
@@ -4160,6 +4180,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6fcb586cdc5a2446b779ddea18467a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movVertical: 0
+  movHorizontal: 1
+  amplitudeY: 0
+  amplitudeX: 2
+  velAngular: 1.4
+  stabilizationForce: 4
+  rb2d: {fileID: 641}
 --- !u!1 &255
 GameObject:
   m_ObjectHideFlags: 0
@@ -4329,7 +4368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &266
 GameObject:
   m_ObjectHideFlags: 0
@@ -4584,10 +4623,10 @@ MonoBehaviour:
   characterTypeToHit: 1
   minDamage: 10000
   maxDamage: 10001
+  destroyOnDamageDealt: 0
   spawnSFXs: []
   minPitch: 0
   maxPitch: 0
-  destroyOnDamageDealt: 0
 --- !u!1 &281
 GameObject:
   m_ObjectHideFlags: 0
@@ -4736,6 +4775,7 @@ GameObject:
   - component: {fileID: 831}
   - component: {fileID: 655}
   - component: {fileID: 1494}
+  - component: {fileID: 297}
   m_Layer: 0
   m_Name: mug_platformDir
   m_TagString: scenario
@@ -4835,6 +4875,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6fcb586cdc5a2446b779ddea18467a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movVertical: 0
+  movHorizontal: 1
+  amplitudeY: 0
+  amplitudeX: 2
+  velAngular: 1.4
+  stabilizationForce: 4
+  rb2d: {fileID: 655}
 --- !u!1 &299
 GameObject:
   m_ObjectHideFlags: 0
@@ -5148,10 +5207,10 @@ MonoBehaviour:
   characterTypeToHit: 1
   minDamage: 10000
   maxDamage: 10001
+  destroyOnDamageDealt: 0
   spawnSFXs: []
   minPitch: 0
   maxPitch: 0
-  destroyOnDamageDealt: 0
 --- !u!1 &319
 GameObject:
   m_ObjectHideFlags: 0
@@ -9518,19 +9577,19 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 239}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!50 &642
 Rigidbody2D:
   serializedVersion: 4
@@ -9812,19 +9871,19 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!50 &656
 Rigidbody2D:
   serializedVersion: 4
@@ -18726,25 +18785,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!95 &930
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 90410737b4e435e4f9b393b845271dfb, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &931
 Animator:
   serializedVersion: 3
@@ -18772,7 +18812,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 239}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e074244e68e587848ad06ed7896a288e, type: 2}
   m_CullingMode: 0
@@ -18810,7 +18850,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 786f7110567500a4793d60d345c31ca2, type: 2}
   m_CullingMode: 0

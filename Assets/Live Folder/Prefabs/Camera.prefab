@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 1, z: 0}
-  interpolator: 7.5
+  speed: 7.5
   rb2d: {fileID: 9001678339261599690}
 --- !u!50 &9001678339261599690
 Rigidbody2D:

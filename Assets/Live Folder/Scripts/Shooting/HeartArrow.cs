@@ -1,9 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class HeartArrow : Bullet
+public interface Arrow 
 {
+    public void OnSpawned(Vector3 playerVelocity, ZeroToOneFloat currentCharge);
+}
+
+public class HeartArrow : Bullet, Arrow
+{
+    [SerializeField]
+    private InstantDamager instantDamager = null;
+    [SerializeField] private GameObject vfx = null;
+    [SerializeField] private float speed = 0.0f;
+    [SerializeField] private float maxChargeScaleMultiplier = 0.0f;
+
     private bool isAttachedToObject;
     private Collider2D objectAttachedTo;
 
@@ -19,7 +28,6 @@ public class HeartArrow : Bullet
             transform.right = RB2D.velocity;
         }
 
-        
         if (isAttachedToObject && objectAttachedTo == null)
         {
             Destroy(gameObject);
@@ -41,9 +49,23 @@ public class HeartArrow : Bullet
         }
     }
 
-    public void ApplyImpulse(float impulse)
+    public void OnSpawned(Vector3 playerVelocity, ZeroToOneFloat currentCharge)
     {
-        RB2D.AddForce(transform.right * impulse, ForceMode2D.Impulse);
+        RB2D.AddForce(transform.right * (speed/* + playerVelocity.x*/) , ForceMode2D.Impulse);
+        
+        // VFX
+        bool isMaxCharge = currentCharge.Value >= 1.0f;
+        vfx.SetActive(isMaxCharge);
+        if (isMaxCharge)
+        {
+            transform.localScale *= maxChargeScaleMultiplier;
+        }
+
+        instantDamager.RegisterCalgulateDamage(() =>
+            {
+                float flexibleSliceOfTheDamage = instantDamager.MaxDamage - instantDamager.MinDamage;
+                return (int) (instantDamager.MinDamage + (flexibleSliceOfTheDamage * currentCharge.Value));
+            } );
     }
 
     private void OnTriggerEnter2D(Collider2D col)

@@ -41460,7 +41460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 2, z: 0}
-  interpolator: 8
+  speed: 6
   rb2d: {fileID: 71}
 --- !u!114 &1835
 MonoBehaviour:
@@ -41732,7 +41732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 2, z: 0}
-  interpolator: 8
+  speed: 6
   rb2d: {fileID: 74}
 --- !u!114 &1848
 MonoBehaviour:
@@ -41904,7 +41904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 2, z: 0}
-  interpolator: 8
+  speed: 6
   rb2d: {fileID: 102}
 --- !u!114 &1858
 MonoBehaviour:
@@ -42144,7 +42144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 2, z: 0}
-  interpolator: 8
+  speed: 6
   rb2d: {fileID: 87}
 --- !u!114 &1873
 MonoBehaviour:
@@ -42866,7 +42866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 2, z: 0}
-  interpolator: 8
+  speed: 0
   rb2d: {fileID: 164}
 --- !u!114 &1913
 MonoBehaviour:
@@ -43104,7 +43104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 2, z: 0}
-  interpolator: 8
+  speed: 6
   rb2d: {fileID: 71}
 --- !u!114 &1931
 MonoBehaviour:
@@ -43634,7 +43634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 1.5, z: 0}
-  interpolator: 8
+  speed: 0
   rb2d: {fileID: 933}
 --- !u!114 &1964
 MonoBehaviour:
@@ -44046,7 +44046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 2, z: 0}
-  interpolator: 8
+  speed: 6
   rb2d: {fileID: 293}
 --- !u!114 &1998
 MonoBehaviour:

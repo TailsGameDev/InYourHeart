@@ -11,13 +11,26 @@ public class InstantDamager : Damager
     [SerializeField] private float minPitch = 0.0f;
     [SerializeField] private float maxPitch = 0.0f;
 
+    public delegate int CalculateDamage();
+    private CalculateDamage calculateDamage;
+
     public int Damage 
     {
         get 
         {
-            return (int)Random.Range(minDamage, maxDamage);
+            if (calculateDamage == null)
+            {
+                return (int)(Random.Range(minDamage, maxDamage));
+            }
+            else
+            {
+                return calculateDamage();
+            }
         }
     }
+
+    public float MinDamage { get => minDamage; }
+    public float MaxDamage { get => maxDamage; }
 
     private void Awake()
     {
@@ -37,6 +50,11 @@ public class InstantDamager : Damager
         {
             Destroy(gameObject);
         }
+    }
+
+    public void RegisterCalgulateDamage(CalculateDamage calculateDamage)
+    {
+        this.calculateDamage = calculateDamage;
     }
 }
 

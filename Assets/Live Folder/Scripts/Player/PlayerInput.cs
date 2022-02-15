@@ -37,4 +37,9 @@ public class PlayerInput : MonoBehaviour
     {
         return Input.GetButtonDown("Submit");
     }
+
+    public bool GetFireButtonUp()
+    {
+        return Input.GetButtonUp("Fire1");
+    }
 }
