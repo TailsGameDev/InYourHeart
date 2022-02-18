@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 577}
   - component: {fileID: 1271}
   - component: {fileID: 917}
+  - component: {fileID: 9}
   m_Layer: 0
   m_Name: mug_platformDir (2)
   m_TagString: scenario
@@ -157,6 +158,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &9
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6fcb586cdc5a2446b779ddea18467a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movVertical: 0
+  movHorizontal: 1
+  amplitudeY: 0
+  amplitudeX: 6
+  velAngular: 1
+  startAngle: 3.14
+  stabilizationForce: 2
+  rb2d: {fileID: 577}
 --- !u!1 &10
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,6 +354,7 @@ GameObject:
   - component: {fileID: 687}
   - component: {fileID: 1292}
   - component: {fileID: 919}
+  - component: {fileID: 30}
   m_Layer: 0
   m_Name: stamp1
   m_TagString: scenario
@@ -372,6 +394,7 @@ GameObject:
   - component: {fileID: 688}
   - component: {fileID: 1294}
   - component: {fileID: 920}
+  - component: {fileID: 27}
   m_Layer: 0
   m_Name: stamp3
   m_TagString: scenario
@@ -435,6 +458,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &27
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6fcb586cdc5a2446b779ddea18467a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movVertical: 1
+  movHorizontal: 0
+  amplitudeY: 4
+  amplitudeX: 0
+  velAngular: 1.5
+  startAngle: 0
+  stabilizationForce: 3
+  rb2d: {fileID: 583}
 --- !u!1 &28
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,6 +516,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &30
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6fcb586cdc5a2446b779ddea18467a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movVertical: 1
+  movHorizontal: 0
+  amplitudeY: 4
+  amplitudeX: 0
+  velAngular: 1.5
+  startAngle: 0
+  stabilizationForce: 3
+  rb2d: {fileID: 582}
 --- !u!1 &31
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,6 +664,7 @@ GameObject:
   - component: {fileID: 590}
   - component: {fileID: 1301}
   - component: {fileID: 921}
+  - component: {fileID: 45}
   m_Layer: 0
   m_Name: mug_platformDir (1)
   m_TagString: scenario
@@ -718,6 +782,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &45
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6fcb586cdc5a2446b779ddea18467a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movVertical: 0
+  movHorizontal: 1
+  amplitudeY: 0
+  amplitudeX: 5
+  velAngular: 1
+  startAngle: 0
+  stabilizationForce: 2
+  rb2d: {fileID: 590}
 --- !u!1 &46
 GameObject:
   m_ObjectHideFlags: 0
@@ -3038,6 +3122,7 @@ GameObject:
   - component: {fileID: 776}
   - component: {fileID: 1420}
   - component: {fileID: 929}
+  - component: {fileID: 187}
   m_Layer: 0
   m_Name: stamp_platform (1)
   m_TagString: scenario
@@ -3063,6 +3148,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6fcb586cdc5a2446b779ddea18467a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movVertical: 1
+  movHorizontal: 0
+  amplitudeY: 4
+  amplitudeX: 0
+  velAngular: 1.5
+  startAngle: 1.57
+  stabilizationForce: 3
+  rb2d: {fileID: 624}
 --- !u!1 &188
 GameObject:
   m_ObjectHideFlags: 0
@@ -3478,6 +3583,7 @@ MonoBehaviour:
   amplitudeY: 6.5
   amplitudeX: 0
   velAngular: 1
+  startAngle: 0
   stabilizationForce: 2
   rb2d: {fileID: 630}
 --- !u!1 &211
@@ -4197,6 +4303,7 @@ MonoBehaviour:
   amplitudeY: 0
   amplitudeX: 2
   velAngular: 1.4
+  startAngle: 0
   stabilizationForce: 4
   rb2d: {fileID: 641}
 --- !u!1 &255
@@ -4892,6 +4999,7 @@ MonoBehaviour:
   amplitudeY: 0
   amplitudeX: 2
   velAngular: 1.4
+  startAngle: 0
   stabilizationForce: 4
   rb2d: {fileID: 655}
 --- !u!1 &299
@@ -5376,7 +5484,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 71.51, y: 16.2, z: 0.1230469}
+  m_LocalPosition: {x: 66.64, y: 16.2, z: 0.1230469}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 557}
@@ -5737,7 +5845,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 38}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 55.59, y: 16.2, z: 0.1230469}
+  m_LocalPosition: {x: 53.97, y: 16.2, z: 0.1230469}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 557}
@@ -6945,7 +7053,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 185}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.07, y: -12.15, z: 0.1230469}
+  m_LocalPosition: {x: 12.07, y: -8.7, z: 0.1230469}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 344}
@@ -8254,7 +8362,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -8266,7 +8374,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 6
 --- !u!50 &578
 Rigidbody2D:
   serializedVersion: 4
@@ -8527,7 +8635,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 38}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -8539,7 +8647,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 6
 --- !u!50 &591
 Rigidbody2D:
   serializedVersion: 4
@@ -18565,7 +18673,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7e8029b74f3fa874b9f0911f1dbf9a04, type: 2}
   m_CullingMode: 0
@@ -18603,7 +18711,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 21}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: fe84ff4316fae9d43b96f8dee99b447f, type: 2}
   m_CullingMode: 0
@@ -18641,7 +18749,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 38}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 86f92d89e17820945bfe55245034a15f, type: 2}
   m_CullingMode: 0
@@ -18774,7 +18882,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 185}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 620e90ca07372ce4886a5a8dd4ee5de2, type: 2}
   m_CullingMode: 0
